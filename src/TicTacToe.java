@@ -11,9 +11,8 @@ public class TicTacToe {
     game.newGame();
   }
 
-
   public void newGame() {
-    currentPlayer = 1;
+    currentPlayer = 2;
     System.out.println("Ready for a game of Tic Tac Toe?");
     
     System.out.println("Player " + currentPlayer + ", choose a square for your move.");
@@ -21,7 +20,7 @@ public class TicTacToe {
     Scanner sc = new Scanner(System.in);
     int playerMove = sc.nextInt();
 
-    currentBoard[playerMove - 1] = player1;
+    currentBoard[playerMove - 1] = currentPlayer == 1 ? player1 : player2;
     printBoard();
   }
 
