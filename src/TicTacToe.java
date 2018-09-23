@@ -37,18 +37,13 @@ public class TicTacToe {
     currentPlayer = currentPlayer == 1 ? 2 : 1;
   }
 
-  public boolean checkForWin() {
-    if ((currentBoard[0] == currentBoard [1] && currentBoard[1] == currentBoard[2] && currentBoard[0] != " ")
-    || (currentBoard[3] == currentBoard[4] && currentBoard[4] == currentBoard[5] && currentBoard[3] != " ")
-    || (currentBoard[6]  == currentBoard[7] && currentBoard[7] == currentBoard[8] && currentBoard[6] != " ")
-    || (currentBoard[0] == currentBoard[3] && currentBoard[3] == currentBoard[6] && currentBoard[0] != " ")
-    || (currentBoard[1] == currentBoard[4] && currentBoard[4] == currentBoard[7] && currentBoard[1] != " ")
-    || (currentBoard[2] == currentBoard[5] && currentBoard[5] == currentBoard[8] && currentBoard[2] != " ")
-    || (currentBoard[0] == currentBoard[4] && currentBoard[4] == currentBoard[8] && currentBoard[0] != " ")
-    || (currentBoard[2] == currentBoard[4] && currentBoard[4] == currentBoard[6] && currentBoard[2] != " ")) {
-      return true;
-    } else {
-      return false;
-    }
+  public boolean checkLine(int a, int b, int c) {
+    return (currentBoard[a] == currentBoard[b] && currentBoard[b] == currentBoard[c] && currentBoard[a] != " ");
   }
+
+  public boolean checkForWin() {
+    return checkLine(0, 1, 2) || checkLine(3, 4, 5) ||checkLine(6, 7, 8) || checkLine(0, 3, 6) 
+    || checkLine(1, 4, 7) || checkLine(2, 5, 8) || checkLine(0, 4, 8) || checkLine(2, 4, 6);
+  }
+
 }
