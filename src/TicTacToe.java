@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class TicTacToe {
-    String player1 = "X";
-    String player2 = "O";
-    int currentPlayer;
-    String[] currentBoard = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+  String player1 = "X";
+  String player2 = "O";
+  int currentPlayer;
+  String[] currentBoard = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
 
   public static void main(String[] args) {
     TicTacToe game = new TicTacToe();
@@ -27,14 +27,24 @@ public class TicTacToe {
     System.out.println(currentBoard[3]  + "|" + currentBoard[4] + "|" + currentBoard[5]);
     System.out.println(currentBoard[6]  + "|" + currentBoard[7] + "|" + currentBoard[8]);
   }
-  public void getPlayerMove() {
-    System.out.println("Player " + currentPlayer + ", choose a square for your move.");
 
-    Scanner sc = new Scanner(System.in);
-    int playerMove = sc.nextInt();
+  public void getPlayerMove() {
+    int playerMove;
+    do {
+      System.out.println("Player " + currentPlayer + ", choose a square for your move.");
+      Scanner sc = new Scanner(System.in);
+      playerMove = sc.nextInt();
+      if (!checkMoveValidity(playerMove)) {
+        System.out.println("Sorry, that isn't a valid move. Please choose again.");
+      }
+    } while (!checkMoveValidity(playerMove));
 
     currentBoard[playerMove - 1] = currentPlayer == 1 ? player1 : player2;    
     currentPlayer = currentPlayer == 1 ? 2 : 1;
+  }
+
+  private boolean checkMoveValidity(int playerMove) {
+    return currentBoard[playerMove - 1] == " ";
   }
 
   public boolean checkLine(int a, int b, int c) {
@@ -42,8 +52,8 @@ public class TicTacToe {
   }
 
   public boolean checkForWin() {
-    return checkLine(0, 1, 2) || checkLine(3, 4, 5) ||checkLine(6, 7, 8) || checkLine(0, 3, 6) 
-    || checkLine(1, 4, 7) || checkLine(2, 5, 8) || checkLine(0, 4, 8) || checkLine(2, 4, 6);
+    return checkLine(0, 1, 2) || checkLine(3, 4, 5) || checkLine(6, 7, 8) || checkLine(0, 3, 6) 
+        || checkLine(1, 4, 7) || checkLine(2, 5, 8) || checkLine(0, 4, 8) || checkLine(2, 4, 6);
   }
 
 }
