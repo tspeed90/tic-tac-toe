@@ -14,7 +14,9 @@ public class TicTacToe {
     while(!game.checkForWin()) {
       game.getPlayerMove();
       game.printBoard();
-    }
+    } 
+    
+    game.announceWinner();
   }
 
   public void newGame() {
@@ -37,7 +39,6 @@ public class TicTacToe {
       try {
         playerMove = sc.nextInt();
       } catch (InputMismatchException e) {
-        // playerMove = -1;
         sc.next();
         System.out.println("Please enter a number between 1 and 9.");
         playerMove = sc.nextInt();
@@ -47,8 +48,10 @@ public class TicTacToe {
       }
     } while (!checkMoveValidity(playerMove));
 
-    currentBoard[playerMove - 1] = currentPlayer == 1 ? player1 : player2;    
-    currentPlayer = currentPlayer == 1 ? 2 : 1;
+    currentBoard[playerMove - 1] = currentPlayer == 1 ? player1 : player2;
+    if (!checkForWin()) {
+      currentPlayer = currentPlayer == 1 ? 2 : 1;
+    } 
   }
 
   private boolean checkMoveValidity(int playerMove) {
@@ -63,5 +66,11 @@ public class TicTacToe {
     return checkLine(0, 1, 2) || checkLine(3, 4, 5) || checkLine(6, 7, 8) || checkLine(0, 3, 6) 
         || checkLine(1, 4, 7) || checkLine(2, 5, 8) || checkLine(0, 4, 8) || checkLine(2, 4, 6);
   }
+
+  public void announceWinner() {
+    if (checkForWin()) {
+      System.out.println("Player " + currentPlayer + " wins!");
+    }
+  } 
 
 }
