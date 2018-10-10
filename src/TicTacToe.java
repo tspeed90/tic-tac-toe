@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class TicTacToe {
   String player1 = "X";
@@ -33,9 +34,16 @@ public class TicTacToe {
     do {
       System.out.println("Player " + currentPlayer + ", choose a square for your move.");
       Scanner sc = new Scanner(System.in);
-      playerMove = sc.nextInt();
+      try {
+        playerMove = sc.nextInt();
+      } catch (InputMismatchException e) {
+        // playerMove = -1;
+        sc.next();
+        System.out.println("Please enter a number between 1 and 9.");
+        playerMove = sc.nextInt();
+      }
       if (!checkMoveValidity(playerMove)) {
-        System.out.println("Sorry, that isn't a valid move. Please choose again.");
+        System.out.println("Sorry, someone has chosen that square. Please choose again.");
       }
     } while (!checkMoveValidity(playerMove));
 
