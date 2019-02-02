@@ -5,7 +5,8 @@ public class TicTacToe {
   String player1 = "X";
   String player2 = "O";
   int currentPlayer;
-  String[] currentBoard = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+  Board board = new Board();
+ 
 
   public static void main(String[] args) {
     TicTacToe game = new TicTacToe();
@@ -13,23 +14,20 @@ public class TicTacToe {
     
     while(!game.checkForWin()) {
       game.getPlayerMove();
-      game.printBoard();
+      game.board.printBoard();
     } 
-    
+
     game.announceWinner();
   }
 
   public void newGame() {
     currentPlayer = 1;
+    board.resetBoard();
     System.out.println("Ready for a game of Tic Tac Toe?");
-    printBoard();
+    board.printBoard();
   }
 
-  public void printBoard() {
-    System.out.println(currentBoard[0]  + "|" + currentBoard[1] + "|" + currentBoard[2]);
-    System.out.println(currentBoard[3]  + "|" + currentBoard[4] + "|" + currentBoard[5]);
-    System.out.println(currentBoard[6]  + "|" + currentBoard[7] + "|" + currentBoard[8]);
-  }
+  
 
   public void getPlayerMove() {
     int playerMove;
@@ -43,23 +41,19 @@ public class TicTacToe {
         System.out.println("Please enter a number between 1 and 9.");
         playerMove = sc.nextInt();
       }
-      if (!checkMoveValidity(playerMove)) {
+      if (!board.isSpotFree(playerMove)) {
         System.out.println("Sorry, someone has chosen that square. Please choose again.");
       }
-    } while (!checkMoveValidity(playerMove));
+    } while (!board.isSpotFree(playerMove));
 
-    currentBoard[playerMove - 1] = currentPlayer == 1 ? player1 : player2;
+    board.currentBoard[playerMove - 1] = currentPlayer == 1 ? player1 : player2;
     if (!checkForWin()) {
       currentPlayer = currentPlayer == 1 ? 2 : 1;
     } 
   }
 
-  private boolean checkMoveValidity(int playerMove) {
-    return currentBoard[playerMove - 1] == " ";
-  }
-
   public boolean checkLine(int a, int b, int c) {
-    return (currentBoard[a] == currentBoard[b] && currentBoard[b] == currentBoard[c] && currentBoard[a] != " ");
+    return (board.currentBoard[a] == board.currentBoard[b] && board.currentBoard[b] == board.currentBoard[c] && board.currentBoard[a] != " ");
   }
 
   public boolean checkForWin() {
