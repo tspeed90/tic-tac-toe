@@ -46,19 +46,19 @@ public class TicTacToe {
       }
     } while (!board.isSpotFree(playerMove));
 
-    board.currentBoard[playerMove - 1] = currentPlayer == 1 ? player1 : player2;
+    board.set(playerMove, currentPlayer == 1 ? player1 : player2);
     if (!checkForWin()) {
       currentPlayer = currentPlayer == 1 ? 2 : 1;
     } 
   }
 
   public boolean checkLine(int a, int b, int c) {
-    return (board.currentBoard[a] == board.currentBoard[b] && board.currentBoard[b] == board.currentBoard[c] && board.currentBoard[a] != " ");
+    return (board.get(a) == board.get(b) && board.get(b) == board.get(c) && !board.isSpotFree(a));
   }
 
   public boolean checkForWin() {
-    return checkLine(0, 1, 2) || checkLine(3, 4, 5) || checkLine(6, 7, 8) || checkLine(0, 3, 6) 
-        || checkLine(1, 4, 7) || checkLine(2, 5, 8) || checkLine(0, 4, 8) || checkLine(2, 4, 6);
+    return checkLine(1, 2, 3) || checkLine(4, 5, 6) || checkLine(7, 8, 9) || checkLine(1, 4, 7) 
+        || checkLine(2, 5, 8) || checkLine(3, 6, 9) || checkLine(1, 5, 9) || checkLine(3, 5, 7);
   }
 
   public void announceWinner() {
